@@ -26,8 +26,9 @@ int main(int argc,char **argv){
 	std::string line;
 	while(getline(h_file,line)){
 		md+=line;
+		md+='\n';
 	}
-	std::ifstream t_file("template.html");
+	std::ifstream t_file("html-files/header.html");
 	if(!t_file){
 		std::cerr<<"template is missing!";
 		return -1;
@@ -36,12 +37,14 @@ int main(int argc,char **argv){
 	std::string html;
 	while(getline(t_file,ml)){
 		html+=ml;
+		html+='\n';
 	}
 	html+="\n";
 	md_html(md.c_str(),md.size(),process_output,&html,MD_DIALECT_COMMONMARK,MD_HTML_FLAG_XHTML);
-	std::cout<<html<<std::endl;
-	std::ofstream ofile("output.html");
+	std::ofstream ofile("html-files/output.html");
 	ofile<<html;
+	ofile<<"</body>\n</html>";
+
 	return 0;
 }
 
